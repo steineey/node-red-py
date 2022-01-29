@@ -1,0 +1,179 @@
+[
+    {
+        "id": "5d1160ae2468e72d",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5fbc8286e05db8da",
+        "type": "inject",
+        "z": "5d1160ae2468e72d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "533a3fe8ef52bf73"
+            ]
+        ]
+    },
+    {
+        "id": "533a3fe8ef52bf73",
+        "type": "exec",
+        "z": "5d1160ae2468e72d",
+        "command": "python3 /data/scripts/sql-server.py",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "150c57ce0b6767da"
+            ],
+            [
+                "150c57ce0b6767da"
+            ],
+            [
+                "150c57ce0b6767da"
+            ]
+        ]
+    },
+    {
+        "id": "150c57ce0b6767da",
+        "type": "debug",
+        "z": "5d1160ae2468e72d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "a7c887f7016611e4",
+        "type": "inject",
+        "z": "5d1160ae2468e72d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 260,
+        "wires": [
+            [
+                "9596ca4caa2389cc"
+            ]
+        ]
+    },
+    {
+        "id": "9596ca4caa2389cc",
+        "type": "exec",
+        "z": "5d1160ae2468e72d",
+        "command": "ping sql",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 280,
+        "y": 260,
+        "wires": [
+            [
+                "30412b66233f90da"
+            ],
+            [
+                "30412b66233f90da"
+            ],
+            [
+                "30412b66233f90da"
+            ]
+        ]
+    },
+    {
+        "id": "30412b66233f90da",
+        "type": "debug",
+        "z": "5d1160ae2468e72d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "2159b0766f88ee83",
+        "type": "inject",
+        "z": "5d1160ae2468e72d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 80,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    }
+]

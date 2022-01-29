@@ -1,0 +1,81 @@
+[
+    {
+        "id": "5d1160ae2468e72d",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5fbc8286e05db8da",
+        "type": "inject",
+        "z": "5d1160ae2468e72d",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "533a3fe8ef52bf73"
+            ]
+        ]
+    },
+    {
+        "id": "533a3fe8ef52bf73",
+        "type": "exec",
+        "z": "5d1160ae2468e72d",
+        "command": "python3 /data/scripts/sql-client.py",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "150c57ce0b6767da"
+            ],
+            [
+                "150c57ce0b6767da"
+            ],
+            [
+                "150c57ce0b6767da"
+            ]
+        ]
+    },
+    {
+        "id": "150c57ce0b6767da",
+        "type": "debug",
+        "z": "5d1160ae2468e72d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 160,
+        "wires": []
+    }
+]
