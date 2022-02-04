@@ -1,12 +1,12 @@
 FROM nodered/node-red:2.2.0-minimal AS base
 
 USER root
-RUN apk update && apk upgrade
 
-FROM base as builder
+######## STAGE BUILD ######
+FROM base as build
 
 # add build tools
-RUN apk add --no-cache python3-dev gcc g++ libc-dev libffi-dev libxml2 unixodbc-dev mariadb-dev postgresql-dev gnupg && \
+RUN apk update && apk add --no-cache python3-dev gcc g++ libc-dev libffi-dev libxml2 unixodbc-dev mariadb-dev postgresql-dev gnupg && \
     ln -sf python3 /usr/bin/python && python3 -m ensurepip && pip3 --no-cache-dir install wheel
 # wheel build binaries
 COPY requirements.txt /data/requirements.txt
@@ -23,17 +23,23 @@ curl https://packages.microsoft.com/keys/microsoft.asc  | gpg --import -
 RUN gpg --verify msodbcsql17_17.8.1.1-1_amd64.sig msodbcsql17_17.8.1.1-1_amd64.apk && \
     gpg --verify mssql-tools_17.8.1.1-1_amd64.sig mssql-tools_17.8.1.1-1_amd64.apk
 
-FROM base
+######### STAGE RELEASE #######
+FROM base AS release
 
-COPY --from=builder /root/mssql  /root/mssql
-RUN apk add --allow-untrusted /root/mssql/msodbcsql17_17.8.1.1-1_amd64.apk && \
+COPY --from=build /root/mssql /root/mssql
+COPY --from=build /root/wheels /root/wheels
+
+RUN apk update && \
+    apk add --allow-untrusted /root/mssql/msodbcsql17_17.8.1.1-1_amd64.apk && \
     apk add --allow-untrusted /root/mssql/mssql-tools_17.8.1.1-1_amd64.apk && \
-    rm -rf /root/mssql
-
-COPY --from=builder /root/wheels /root/wheels
-RUN apk add --no-cache python3 unixodbc && \
+    rm -rf /root/mssql && \
+    apk add --no-cache python3 unixodbc && \
     python3 -m ensurepip && \
     pip3 install --no-cache --no-index /root/wheels/* && \
     rm -rf /root/wheels
 
+WORKDIR /data
+
 USER node-red
+
+#ENTRYPOINT ["npm", "start", "--cache", "/data/.npm", "--", "--userDir", "/data"]
